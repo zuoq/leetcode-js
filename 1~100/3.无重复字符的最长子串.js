@@ -60,7 +60,7 @@ const findStrNoRepeat = function(strArray = []) {
     return noRepeatArray;
 }
 
-////step1(my answer)
+//step1(my answer)
 /**
  * @param {string} s
  * @return {number}
@@ -78,4 +78,34 @@ const lengthOfLongestSubstring = function(s) {
         return maxNum;
     }
 };
-    
+
+
+ //step2(view good answer) 
+ 
+ var lengthOfLongestSubstring = function(s) {
+    // 滑动窗口初始化为一个空数组
+    let arr = [];
+    // 要返回的字符串的长度
+    let max = 0;
+    for (let i = 0; i < s.length; i++) {
+      // 使用 indexOf 判断是否在数组中出现过
+      let index = arr.indexOf(s[i])
+      // 如果出现过
+      if (index !== -1) {
+        // 从数组开头到当前字符串全部截取掉
+        arr.splice(0, index + 1);
+      }
+      // 在窗口右边放进新的字符
+      arr.push(s.charAt(i));
+      // 更新下最大值
+      max = Math.max(arr.length, max);
+    }
+    // 返回
+    return max;
+};
+
+//step3(Reflection)
+//使用了滑动窗口的算法思想，减少了计算
+//滑动窗口法，可以用来解决一些查找满足一定条件的连续区间的性质（长度等）的问题。
+//由于区间连续，因此当区间发生变化时，可以通过旧有的计算结果对搜索空间进行剪枝，这样便减少了重复计算，降低了时间复杂度。
+//往往类似于“请找到满足xx的最x的区间（子串、子数组）的xx”这类问题都可以使用该方法进行解决。
